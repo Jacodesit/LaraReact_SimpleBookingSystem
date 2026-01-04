@@ -1,5 +1,6 @@
 import { on } from "events";
 import LandingButtons from "./landing-buttons"
+import Footer from "./footer";
 
 type Props = {
     headline: string;
@@ -8,6 +9,9 @@ type Props = {
 }
 
 export default function LandingContent({ headline, subtext, onClick}: Props ) {
+    const footerText1 = 'Built with Laravel, Inertia.js, React, and Typescript.';
+    const footerText2 = '© 2025 All rights reserved.'
+
     return (
         <div className="px-25 flex gap-5 h-screen z-[90] relative">
             <div className="w-1/2 flex justify-center flex-col gap-15 ">
@@ -17,6 +21,10 @@ export default function LandingContent({ headline, subtext, onClick}: Props ) {
                 </div>
                 <LandingButtons
                     onClick={() => onClick()}
+                />
+                <Footer 
+                    footerText1={footerText1}
+                    footerText2={footerText2}
                 />
             </div>
             <div className="w-1/2 flex items-center justify-center">
