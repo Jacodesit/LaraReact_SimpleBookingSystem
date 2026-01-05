@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->date('booking_date');
+            $table->enum('status', ['pending', 'confirmed', 'canceled'])->default('pending');
             $table->timestamps();
         });
     }

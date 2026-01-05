@@ -17,7 +17,9 @@ class BookingFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->text(25),
+            'booking_date' => fake() ->date(),
+            'status' => fake()->randomElement(['pending', 'confirmed', 'canceled']),
         ];
     }
 }
