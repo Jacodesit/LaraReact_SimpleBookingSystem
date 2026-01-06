@@ -1,9 +1,18 @@
 import MainLayout from "@/layouts/main-layout"
+import DataContainer from "@/components/data-container"
 
-export default function Home() {
+import type { Booking } from "@/types/booking"
+
+type HomeProps = {
+    bookings: Booking[]
+}
+
+export default function Home({ bookings }:HomeProps) {
     return (
         <MainLayout>
-            <h1>Homepage</h1>
+            <DataContainer
+                bookings={bookings}
+            />
         </MainLayout>
     )
 }

@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
-use App\Http\Requests\StoreBookingRequest;
-use App\Http\Requests\UpdateBookingRequest;
-
+use Illuminate\Http\Request;
+use Inertia\Inertia;
 class BookingController extends Controller
 {
     /**
@@ -13,7 +12,10 @@ class BookingController extends Controller
      */
     public function index()
     {
-        //
+        $bookings = Booking::latest()->get();
+        return Inertia::render('Mainpages/Home', [
+            'bookings' => $bookings
+        ]);
     }
 
     /**
@@ -27,9 +29,16 @@ class BookingController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBookingRequest $request)
+    public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:30',
+            'booking_date' => 'required|date',
+        ]);
+
+        Booking::create($validated);
+
+        return redirect('/home');
     }
 
     /**
@@ -51,7 +60,7 @@ class BookingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBookingRequest $request, Booking $booking)
+    public function update(Request $request, Booking $booking)
     {
         //
     }

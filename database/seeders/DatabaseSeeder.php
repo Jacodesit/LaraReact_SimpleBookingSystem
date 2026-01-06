@@ -23,6 +23,6 @@ class DatabaseSeeder extends Seeder
         //         'email_verified_at' => now(),
         //     ]
         // );
-        Booking::factory(30)->create();
+        Booking::factory(50)->create();
     }
 }
