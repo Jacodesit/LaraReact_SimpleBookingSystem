@@ -42,7 +42,9 @@ export default function BookingModal({ openModal, onClose, headline, subtext }:P
                             <p className="text-gray-500 text-sm">{subtext}</p>
                         </div>
 
-                        <BookingForm />
+                        <BookingForm
+                            onSuccess={onClose}
+                        />
                     </div>
 
                 </div>

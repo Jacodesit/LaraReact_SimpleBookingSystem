@@ -1,7 +1,12 @@
 import { useForm } from "@inertiajs/react"
+import { toast } from "react-hot-toast";
 
-export default function BookingForm() {
-    const { data, setData, post, errors, processing } = useForm({
+type PageProps = {
+    onSuccess: () => void
+}
+
+export default function BookingForm({ onSuccess }:PageProps ) {
+    const { data, setData, post, errors, processing, reset } = useForm({
         name: '',
         booking_date: '',
         statue: '',
@@ -9,7 +14,13 @@ export default function BookingForm() {
 
     function submit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        post('/bookings');
+        post('/bookings', {
+            onSuccess: () => {
+                reset()
+                onSuccess();
+                toast.success('Booking created successfully!');
+            }
+        })
     }
 
     return (

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Carbon\Carbon;
 class BookingController extends Controller
 {
     /**
@@ -12,7 +13,13 @@ class BookingController extends Controller
      */
     public function index()
     {
-        $bookings = Booking::latest()->get();
+        $bookings = Booking::latest()->get()->map(function ($booking) {
+            $booking->booking_date = Carbon::parse($booking->booking_date)
+                ->format('F j, Y');
+
+            return $booking;
+        });
+
         return Inertia::render('Mainpages/Home', [
             'bookings' => $bookings
         ]);
