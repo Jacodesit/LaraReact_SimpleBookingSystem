@@ -1,16 +1,8 @@
-import { CircleX } from "lucide-react";
+import { CircleX } from "lucide-react"
 
-import BookingForm from "./booking-form";
-
-type PageProps = {
-    openModal: boolean;
-    onClose: () => void;
-    headline: string;
-    subtext: string
-}
-
-export default function BookingModal({ openModal, onClose, headline, subtext }:PageProps ) {
-    if (!openModal) return null;
+export default function EditModal() {
+    const headline = 'Edit Booking'
+    const subtext = 'Make quick changes to keep your booking accurate.'
 
     return (
         <div className="fixed inset-0 bg-black/80 bg-opacity-50 flex items-center justify-center p-4 z-[500]">
@@ -29,7 +21,7 @@ export default function BookingModal({ openModal, onClose, headline, subtext }:P
                         className="flex justify-end"
                     >
                         <button
-                            onClick={onClose}
+
                             className="mb-2 hover:cursor-pointer"
                         >
                             <CircleX size={20} />
@@ -41,10 +33,6 @@ export default function BookingModal({ openModal, onClose, headline, subtext }:P
                             <h1 className="font-[Poppins] font-medium text-xl">{headline}</h1>
                             <p className="text-gray-500 text-sm">{subtext}</p>
                         </div>
-
-                        <BookingForm
-                            onSuccess={onClose}
-                        />
                     </div>
                 </div>
             </div>

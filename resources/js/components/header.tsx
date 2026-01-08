@@ -17,7 +17,7 @@ export default function Header({appName}: HeaderProps) {
 
     return (
         <header
-            className={`px-25 py-5 fixed w-screen flex justify-between items-center ${currentRoute === '/' ? 'border-b-0' : 'border-b'}`}
+            className={`px-25 py-5 fixed w-screen flex justify-between items-center ${currentRoute === '/' ? 'border-b-0' : 'border-b bg-white'}`}
         >
             <nav>
                 <Link
