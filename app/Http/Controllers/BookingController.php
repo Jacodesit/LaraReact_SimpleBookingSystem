@@ -69,7 +69,14 @@ class BookingController extends Controller
      */
     public function update(Request $request, Booking $booking)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:30',
+            'booking_date' => 'required|date',
+        ]);
+
+        $booking->update($validated);
+
+        return redirect('/home');
     }
 
     /**

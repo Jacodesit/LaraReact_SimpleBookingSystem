@@ -18,7 +18,7 @@ export default function BookingForm({ onSuccess }:PageProps ) {
             onSuccess: () => {
                 reset()
                 onSuccess();
-                toast.success('Booking created successfully!');
+                toast.success('Yay! Booking created successfully!');
             }
         })
     }

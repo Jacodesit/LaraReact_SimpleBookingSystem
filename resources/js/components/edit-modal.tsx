@@ -1,6 +1,18 @@
 import { CircleX } from "lucide-react"
 
-export default function EditModal() {
+import type { Booking } from "@/types/booking"
+
+import EditBookingForm from "./edit-form";
+
+type PageProps = {
+    openEdit: boolean;
+    booking: Booking | null;
+    onClose: () => void
+}
+
+export default function EditModal({ openEdit, booking, onClose }: PageProps) {
+    if (!openEdit || !booking) return null;
+
     const headline = 'Edit Booking'
     const subtext = 'Make quick changes to keep your booking accurate.'
 
@@ -10,18 +22,18 @@ export default function EditModal() {
                 <div className="w-1/2 p-5">
                     <div>
                         <img
-                            src="/Backgrounds/booking.svg"
+                            src="/Backgrounds/edit.svg"
                             alt="Booking SVG"
                             className="h-96 flex "
                         />
                     </div>
                 </div>
-                <div className="w-1/2 bg-white p-5">
+                <div className="w-1/2 bg-white p-5 rounded-lg">
                     <div
                         className="flex justify-end"
                     >
                         <button
-
+                            onClick={onClose}
                             className="mb-2 hover:cursor-pointer"
                         >
                             <CircleX size={20} />
@@ -33,6 +45,11 @@ export default function EditModal() {
                             <h1 className="font-[Poppins] font-medium text-xl">{headline}</h1>
                             <p className="text-gray-500 text-sm">{subtext}</p>
                         </div>
+
+                        <EditBookingForm
+                            booking={booking}
+                            onSuccess={onClose}
+                        />
                     </div>
                 </div>
             </div>

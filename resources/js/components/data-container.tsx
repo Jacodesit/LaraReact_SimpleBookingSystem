@@ -1,11 +1,7 @@
-import { useState } from 'react';
-
 import { Plane } from 'lucide-react';
 
 import NoData from "./no-data"
 import ActionBtns from './action-btns';
-import ViewBookingModal from './view-modal';
-import EditModal from './edit-modal';
 
 import type { Booking } from "@/types/booking"
 
@@ -29,22 +25,6 @@ export default function DataContainer({ bookings, headline, subtext }:DataContai
         cancelled: 'bg-red-50 border border-red-500'
     }
 
-    // View
-    const [ openDetails, setOpenDetails ] = useState(false);
-    const [ selectedBooking, setSelectedBooking ] = useState<Booking | null>(null)
-
-    // Edit
-    // const [ openEdit, setOpenEdit ] = useState(false);
-
-    const openDetailsModal = (booking: Booking) => {
-        setSelectedBooking(booking)
-        setOpenDetails(true);
-    }
-
-    // const openEditModal = (booking: Booking) => {
-    //     setSelectedBooking(booking)
-    //     setOpenEdit(true);
-    // }
     return (
         <div
             className='py-25'
@@ -78,7 +58,7 @@ export default function DataContainer({ bookings, headline, subtext }:DataContai
 
                                             <div className="w-full">
                                                 <div className="flex justify-between items-center">
-                                                    <h1 className="font-medium text-xl font-[Poppins]">{booking.name}</h1>
+                                                    <h1 className="font-medium text-lg font-[Poppins]">{booking.name}</h1>
                                                     <p className={`capitalize text-xs py-1 px-2 font-bold rounded ${statusColorCoding[booking.status]}`}>
                                                         {booking.status}
                                                     </p>
@@ -93,7 +73,7 @@ export default function DataContainer({ bookings, headline, subtext }:DataContai
                                             </div>
                                         </div>
                                         <ActionBtns
-                                            onClick={() => openDetailsModal(booking)}
+                                            booking={booking}
                                         />
                                     </div>
                                 </div>
@@ -102,16 +82,6 @@ export default function DataContainer({ bookings, headline, subtext }:DataContai
                     </div>
                 </main>
             )}
-
-            <ViewBookingModal
-                booking={selectedBooking}
-                openDetails={openDetails}
-                onClose={() => setOpenDetails(false)}
-            />
-
-            <EditModal
-
-            />
         </div>
     )
 }

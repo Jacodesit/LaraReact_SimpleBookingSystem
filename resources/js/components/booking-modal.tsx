@@ -24,7 +24,7 @@ export default function BookingModal({ openModal, onClose, headline, subtext }:P
                         />
                     </div>
                 </div>
-                <div className="w-1/2 bg-white p-5">
+                <div className="w-1/2 bg-white p-5 rounded-lg">
                     <div
                         className="flex justify-end"
                     >
