@@ -1,3 +1,6 @@
+import { useRoute } from '../../../vendor/tightenco/ziggy'
+import { router } from '@inertiajs/react'
+
 import { Eye } from "lucide-react"
 import { SquarePen } from "lucide-react"
 import { Trash } from "lucide-react"
@@ -7,12 +10,14 @@ import { useState } from "react"
 
 import ViewBookingModal from "./view-modal"
 import EditModal from "./edit-modal"
+import toast from 'react-hot-toast'
 
 type PageProps = {
     booking: Booking
 }
 
 export default function ActionBtns({ booking }: PageProps) {
+    const route = useRoute();
 
     // View
     const [openDetails, setOpenDetails] = useState(false);
@@ -31,6 +36,14 @@ export default function ActionBtns({ booking }: PageProps) {
     const openEditModal = (booking: Booking) => {
         setSelectedBooking(booking)
         setOpenEdit(true);
+    }
+
+    const deleteBooking = (booking: Booking) => {
+        router.delete(route('bookings.destroy', {booking: booking.id }), {
+            onSuccess: () => {
+                toast.success('Yay! Booking deleted successfully!');
+            }
+        })
     }
 
     return (
@@ -54,6 +67,7 @@ export default function ActionBtns({ booking }: PageProps) {
 
                 {/* Delete */}
                 <button
+                    onClick={() => deleteBooking(booking)}
                     className="bg-white p-2 rounded-full hover:cursor-pointer"
                 >
                     <Trash color="#EF4444" />

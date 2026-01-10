@@ -64,7 +64,27 @@ export default function ViewBookingModal({ openDetails, booking, onClose }:PageP
                     </div>
                 </div>
 
-                <ViewActionBtns />
+                { booking.status === 'confirmed' || booking.status === 'cancelled' ? (
+                    <div
+                        className="p-10 mt-22"
+                    >
+                        <div
+                            className={`py-3 rounded-md text-center text-xs
+                                ${booking.status === 'confirmed' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}
+                            `}
+                        >
+                            {booking.status === 'confirmed'
+                                ? <p>This booking is already <span className="font-semibold">{booking.status}</span>. Therefore it cannot be cancelled anymore.</p>
+                                : <p>This booking is already <span className="font-semibold">{booking.status}</span>. Therefore it cannot be confirm anymore.</p>
+                            }
+                        </div>
+                    </div>
+                ) : (
+                    <ViewActionBtns
+                        booking={booking}
+                        onSuccess={onClose}
+                    />
+                )}
             </div>
         </div>
     )

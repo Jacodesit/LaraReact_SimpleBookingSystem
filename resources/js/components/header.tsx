@@ -21,7 +21,7 @@ export default function Header({appName}: HeaderProps) {
         >
             <nav>
                 <Link
-                    href={'/'}
+                    href={'/home'}
                     className="text-xl font-semibold font-[Poppins] text-blue-700"
                 >
                     {appName}

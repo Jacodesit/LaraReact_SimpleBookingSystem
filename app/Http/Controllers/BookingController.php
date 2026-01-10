@@ -84,6 +84,18 @@ class BookingController extends Controller
      */
     public function destroy(Booking $booking)
     {
-        //
+        $booking->delete();
+
+        return redirect('/home');
+    }
+
+    public function updateStatus(Request $request, Booking $booking) {
+        $validated = $request->validate([
+            'status' => 'required|in:pending,confirmed,cancelled'
+        ]);
+
+        $booking->update($validated);
+
+        return redirect('/home');
     }
 }

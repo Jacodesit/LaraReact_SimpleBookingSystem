@@ -13,6 +13,6 @@ class Booking extends Model
     protected $fillable = [
         'name',
         'booking_date',
-        'statue',
+        'status',
     ];
 }
