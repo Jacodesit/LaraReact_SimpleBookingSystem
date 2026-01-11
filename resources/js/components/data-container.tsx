@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Plane } from 'lucide-react';
 
 import NoData from "./no-data"
@@ -25,6 +26,13 @@ export default function DataContainer({ bookings, headline, subtext }:DataContai
         cancelled: 'bg-red-50 border border-red-500'
     }
 
+    const [statusFilter, setStatusFilter] = useState<'all' | 'pending' | 'confirmed' | 'cancelled'>('all');
+
+    const filteredStatus = bookings.filter(booking => {
+        if(statusFilter === 'all') return true;
+        return booking.status === statusFilter;
+    })
+
     return (
         <div
             className=''
@@ -37,8 +45,50 @@ export default function DataContainer({ bookings, headline, subtext }:DataContai
                         <h1 className="text-4xl font-medium font-[Poppins]">{headline}</h1>
                         <p className="text-gray-500">{subtext}</p>
                     </div>
+                    <div className='flex gap-2'>
+                        {/* All */}
+                        <button
+                            onClick={() => setStatusFilter('all')}
+                            className={`px-5 py-1 rounded transition-all duration-300 hover:cursor-pointer text-xs ${statusFilter === 'all' ?
+                                'bg-blue-500 text-white' : 'bg-gray-200 hover:bg-blue-400 hover:text-white'
+                            }`}
+                        >
+                            All
+                        </button>
+
+                        {/* Pending */}
+                        <button
+                            onClick={() => setStatusFilter('pending')}
+                            className={`px-5 py-1 rounded transition-all duration-300 hover:cursor-pointer text-xs ${statusFilter === 'pending' ?
+                                'bg-amber-100 text-amber-700' : 'bg-gray-200 hover:bg-amber-400 hover:text-white'
+                            }`}
+                        >
+                            Pending
+                        </button>
+
+                        {/* Confirmed */}
+                        <button
+                            onClick={() => setStatusFilter('confirmed')}
+                            className={`px-5 py-1 rounded transition-all duration-300 hover:cursor-pointer text-xs ${statusFilter === 'confirmed' ?
+                                'bg-green-100 text-green-700' : 'bg-gray-200 hover:bg-green-400 hover:text-white'
+                            }`}
+                        >
+                            Confirmed
+                        </button>
+
+                        {/* Cancelled */}
+                        <button
+                            onClick={() => setStatusFilter('cancelled')}
+                            className={`px-5 py-1 rounded transition-all duration-300 hover:cursor-pointer text-xs ${statusFilter === 'cancelled' ?
+                                'bg-red-100 text-red-700' : 'bg-gray-200 hover:bg-red-400 hover:text-white'
+                            }`}
+                        >
+                            Cancelled
+                        </button>
+                    </div>
+
                     <div className="grid grid-cols-3 gap-5 ">
-                        {bookings.map(booking => (
+                        {filteredStatus.map(booking => (
                             <div
                                 key={booking.id}
                                 className={`border flex gap-6 items-center rounded-md ${cardColor[booking.status]}`}
