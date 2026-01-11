@@ -27,12 +27,12 @@ export default function DataContainer({ bookings, headline, subtext }:DataContai
 
     return (
         <div
-            className='py-25'
+            className=''
         >
             {bookings.length === 0 ? (
                 <NoData />
             ) : (
-                <main className="flex flex-col gap-5">
+                <main className="flex flex-col gap-5 py-25">
                     <div className="">
                         <h1 className="text-4xl font-medium font-[Poppins]">{headline}</h1>
                         <p className="text-gray-500">{subtext}</p>

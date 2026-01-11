@@ -43,7 +43,21 @@ class BookingController extends Controller
             'booking_date' => 'required|date',
         ]);
 
-        Booking::create($validated);
+        $exists = Booking::where('booking_date', $validated['booking_date'])
+            ->whereIn('status', ['pending', 'confirmed'])
+            ->exists();
+
+        if($exists) {
+            return back()->withErrors([
+                'booking_date' => 'Sorry, this date is already booked choose another date.'
+            ]);
+        }
+
+        Booking::create([
+            'name' => $validated['name'],
+            'booking_date' => $validated['booking_date'],
+            'status' => 'pending',
+        ]);
 
         return redirect('/home');
     }
@@ -73,6 +87,17 @@ class BookingController extends Controller
             'name' => 'required|max:30',
             'booking_date' => 'required|date',
         ]);
+
+        $exists = Booking::where('booking_date', $validated['booking_date'])
+            ->whereIn('status', ['pending', 'confirmed'])
+            ->where('id', '!=', $booking->id)
+            ->exists();
+
+        if($exists) {
+            return back()->withErrors([
+                'booking_date' => 'Sorry, this date is already booked choose another date.'
+            ]);
+        }
 
         $booking->update($validated);
 

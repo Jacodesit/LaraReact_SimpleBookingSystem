@@ -5,10 +5,12 @@ type PageProps = {
     onSuccess: () => void
 }
 
+const today = new Date().toISOString().split('T')[0];
+
 export default function BookingForm({ onSuccess }:PageProps ) {
     const { data, setData, post, errors, processing, reset } = useForm({
         name: '',
-        booking_date: '',
+        booking_date: today,
         statue: '',
     });
 
@@ -58,6 +60,7 @@ export default function BookingForm({ onSuccess }:PageProps ) {
                         </label>
                         <input
                             type="date"
+                            min={today}
                             value={data.booking_date}
                             onChange={(e) => setData('booking_date', e.target.value)}
                             name="booking_date"

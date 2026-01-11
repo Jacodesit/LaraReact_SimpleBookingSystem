@@ -41,7 +41,7 @@ export default function ActionBtns({ booking }: PageProps) {
     const deleteBooking = (booking: Booking) => {
         router.delete(route('bookings.destroy', {booking: booking.id }), {
             onSuccess: () => {
-                toast.success('Yay! Booking deleted successfully!');
+                toast.success('Aww! Booking deleted successfully!');
             }
         })
     }
@@ -60,7 +60,10 @@ export default function ActionBtns({ booking }: PageProps) {
                 {/* Edit */}
                 <button
                     onClick={() => openEditModal(booking)}
-                    className="bg-white p-2 rounded-full hover:cursor-pointer"
+                    className={`bg-white p-2 rounded-full hover:cursor-pointer
+                        ${booking.status === 'confirmed' ? 'hidden' : 'block'}
+                        ${booking.status === 'cancelled' ? 'hidden' : 'block'
+                    }`}
                 >
                     <SquarePen color="#48bb78" />
                 </button>
